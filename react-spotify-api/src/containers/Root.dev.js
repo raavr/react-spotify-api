@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom'
 import App from './App'
 import Header from './Header';
 import Login from './Login';
-import Callback from './Callback';
+import Callback from '../components/Callback';
 
 const Root = ({ store }) => (
   <Provider store={store}>
