@@ -1,4 +1,4 @@
-import { login, logout } from './session';
+import { login, logout, autoLogin } from './session';
 import { search } from './search';
 
 export const actionTypes = {
@@ -13,6 +13,7 @@ export const requestTypes = {
 
 export {
   login,
+  autoLogin,
   logout,
   search
 }

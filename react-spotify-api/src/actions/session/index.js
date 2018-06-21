@@ -12,6 +12,15 @@ const setSession = (session) => ({
 const resetSession = () => ({
   type: actionTypes.RESET_SESSION
 });
+
+export const autoLogin = () => (dispatch) => {
+  const token = Cookies.get(ACCESS_TOKEN);
+  if(!token) {
+    return null;
+  }
+  
+  return dispatch(setSession({ token }));
+}
   
 export const login = () => (dispatch) => {
   dispatch(setPendingRequest(true, requestTypes.AUTH));

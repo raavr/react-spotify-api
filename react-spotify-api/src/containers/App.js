@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestTypes } from '../actions';
+import { Search } from '../components/Search';
 
 class App extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.object,
-    isPendingRequest: PropTypes.bool
+    isPendingRequest: PropTypes.bool,
+    searchValue: PropTypes.string
+  }
+
+  handleChange = nextValue => {
+    this.props.history.push(`/search/${nextValue}`)
   }
 
   render() {
-    const { isAuthenticated, isPendingRequest } = this.props;
+    const { isAuthenticated, isPendingRequest, searchValue } = this.props;
 
     if (isPendingRequest) {
       return <div>Waiting...</div>;
@@ -22,14 +28,17 @@ class App extends Component {
     }
 
     return (
-      <p>Let's get started!</p>
+      <div>
+        <Search searchValue={searchValue} onChange={this.handleChange} />
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   isAuthenticated: state.session.session,
-  isPendingRequest: state.request[requestTypes.AUTH]
+  isPendingRequest: state.request[requestTypes.AUTH],
+  searchValue: ownProps.match.params.name || ''
 });
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

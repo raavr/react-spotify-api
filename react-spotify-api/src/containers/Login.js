@@ -7,7 +7,7 @@ import { login } from '../actions';
 
 const Login = ({ isAuthenticated, onLogin }) => {
   return isAuthenticated ? 
-    <Redirect to="/" /> : 
+    <Redirect to="/search" /> : 
     <button type="button" onClick={onLogin}>Login with Spotify</button>
 }
 
