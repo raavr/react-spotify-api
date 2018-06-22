@@ -4,11 +4,13 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestTypes } from '../actions';
 import { Search } from '../components/Search';
+import SearchResult from './SearchResult';
+import Loading from '../components/Loading';
 
 class App extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.object,
-    isPendingRequest: PropTypes.bool,
+    isLoading: PropTypes.bool,
     searchValue: PropTypes.string
   }
 
@@ -17,10 +19,10 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, isPendingRequest, searchValue } = this.props;
+    const { isAuthenticated, isLoading, searchValue } = this.props;
 
-    if (isPendingRequest) {
-      return <div>Waiting...</div>;
+    if (isLoading) {
+      return <Loading isLoading={isLoading} />
     }
 
     if (!isAuthenticated) {
@@ -30,6 +32,7 @@ class App extends Component {
     return (
       <div>
         <Search searchValue={searchValue} onChange={this.handleChange} />
+        <SearchResult artistName={searchValue} />
       </div>
     );
   }
@@ -37,7 +40,7 @@ class App extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   isAuthenticated: state.session.session,
-  isPendingRequest: state.request[requestTypes.AUTH],
+  isLoading: state.request[requestTypes.AUTH],
   searchValue: ownProps.match.params.name || ''
 });
 

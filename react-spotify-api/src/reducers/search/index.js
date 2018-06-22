@@ -1,14 +1,9 @@
-import { actionTypes } from '../../actions/index';
+import { merge } from 'lodash';
 
-const setSearchQuery = (store, searchQuery) => ({
-  ...store, searchQuery
-});
-
-export const search = (store = {}, action) => {
-  switch (action.type) {
-    case actionTypes.SEARCH_QUERY:
-      return setSearchQuery(store, action.searchQuery);
-    default:
-      return store
+export const entities = (state = { searches: {}, albums: {}, artists: {} }, action) => {
+  if (action.response && action.response.entities) {
+    return merge({}, state, action.response.entities);
   }
-};
+
+  return state;
+}

@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { session } from './session';
 import { request } from './request';
-import { search } from './search';
+import { entities } from './search';
 
 const rootReducer = combineReducers({
   session,
   request,
-  search
+  entities
 })
 
-export default rootReducer
+export default rootReducer;

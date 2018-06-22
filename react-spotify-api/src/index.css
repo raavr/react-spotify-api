@@ -3,3 +3,24 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.artist-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.artist-item {
+  margin: 10px;
+}
+
+.artist-item__img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.artist-item__name {
+  text-align: center;
+  margin-top: 4px;
+}
