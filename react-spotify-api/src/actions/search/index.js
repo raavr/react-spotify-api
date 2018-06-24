@@ -1,19 +1,20 @@
 import { actionTypes } from '../';
-import { SPOTIFY_API } from '../../middleware/api';
+import { SPOTIFY_API, SPOTIFY_URL } from '../../middleware/api';
 import { SCHEMA } from '../../constants';
 
-export const loadArtist = (name) => (dispatch, getState) => {
+export const loadArtist = (name, nextPage = false) => (dispatch, getState) => {
   const artists = getState().entities.searches[name];
-  if(artists) {
+  if(artists && !nextPage) {
     return null;
   }
 
-  return dispatch(searchArtist(name)); 
+  const nextPageUrl =  artists ? artists.next : `${SPOTIFY_URL}/search?q=${name}&type=artist`;
+  return dispatch(searchArtist(name, nextPageUrl)); 
 };
 
-export const searchArtist = (name) => ({
+export const searchArtist = (name, nextPageUrl) => ({
   [SPOTIFY_API]: {
-    endpoint: `/search?q=${name}&type=artist`,
+    endpoint: nextPageUrl,
     type: actionTypes.SEARCH_ARTIST,
     schema: SCHEMA.SEARCHES
   }

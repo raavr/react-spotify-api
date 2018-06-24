@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import withLoading from './withLoading';
+import withFetchOnScroll from './withFetchOnScroll';
 import Artist from './Artist';
 
 const List = ({ items }) => {
@@ -15,4 +16,4 @@ List.propTypes = {
     items: PropTypes.array.isRequired
 }
 
-export default withLoading(List);
+export default withFetchOnScroll(withLoading(List));

@@ -4,8 +4,7 @@ import { requestTypes, actionTypes } from '../actions';
 import { normalize } from 'normalizr';
 
 export const SPOTIFY_API = 'SPOTIFY_API';
-
-const SPOTIFY_URL = 'https://api.spotify.com/v1';
+export const SPOTIFY_URL = 'https://api.spotify.com/v1';
 
 const mapJsonResponse = (json, type) => {
     switch(type) {
@@ -17,8 +16,7 @@ const mapJsonResponse = (json, type) => {
 }
 
 const fetchApi = (token, spotifyAction) => {
-    const url = `${SPOTIFY_URL}${spotifyAction.endpoint}`;
-    return fetch(url, {
+    return fetch(spotifyAction.endpoint, {
         headers: {
             "Accept": "application/json", 
             "Content-Type": "application/json", 

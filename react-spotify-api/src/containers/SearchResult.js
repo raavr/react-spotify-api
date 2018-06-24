@@ -25,9 +25,17 @@ class SearchResult extends Component {
     }
   }
 
+  fetchMore = () => {
+    const { loadArtist, artistName } = this.props;
+    loadArtist(artistName, true);
+  }
+
   render() {
     const { artistName, isLoading, items } = this.props;
-    return artistName ? <List items={items} isLoading={isLoading} /> : <div>Search for artsits</div>
+    
+    return artistName ? 
+      <List items={items} isLoading={isLoading && items.length === 0} onScroll={this.fetchMore}/> : 
+      <div>Search for artists</div>
   }
 }
 
