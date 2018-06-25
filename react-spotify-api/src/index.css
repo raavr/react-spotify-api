@@ -4,23 +4,26 @@ body {
   font-family: sans-serif;
 }
 
-.artist-list {
+.list {
   display: flex;
   flex-wrap: wrap;
 }
 
-.artist-item {
+.list-item {
   margin: 10px;
 }
 
-.artist-item__img {
+.list-item__img {
   display: block;
   width: 150px;
   height: 150px;
+}
+
+.artist-item__img {
   border-radius: 50%;
 }
 
-.artist-item__name {
+.list-item__name {
   text-align: center;
   margin-top: 4px;
 }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadArtist, requestTypes } from '../actions';
 import List from '../components/List'; 
+import Artist from '../components/Artist';
 
 class SearchResult extends Component {
   static protoType = {
@@ -30,11 +31,15 @@ class SearchResult extends Component {
     loadArtist(artistName, true);
   }
 
+  renderArtist(item) {
+    return <Artist key={item.id} artist={item}/>
+  }
+
   render() {
     const { artistName, isLoading, items } = this.props;
     
     return artistName ? 
-      <List items={items} isLoading={isLoading && items.length === 0} onScroll={this.fetchMore}/> : 
+      <List items={items} isLoading={isLoading && items.length === 0} onScroll={this.fetchMore} renderItem={this.renderArtist}/> : 
       <div>Search for artists</div>
   }
 }
