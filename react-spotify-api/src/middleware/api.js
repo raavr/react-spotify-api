@@ -1,5 +1,5 @@
 import { setPendingRequest, setRepeatRequest } from '../actions/request';
-import { requestTypes } from '../actions';
+import { requestTypes, showErrorMessage } from '../actions';
 import { normalize } from 'normalizr';
 import { setSession } from '../actions/session';
 import { SERVER_URL, SPOTIFY_API } from '../constants';
@@ -67,12 +67,15 @@ export default store => dispatch => action => {
           if(err.error.status === 401) {
             dispatch(setSession({ refreshToken, accessToken: data.access_token  }));
             dispatch(setRepeatRequest(true));
+          } else {
+            dispatch(showErrorMessage(err.error));
+            dispatch(setPendingRequest(false, requestType));
           }
         }
       ).catch(err => {
         dispatch(setPendingRequest(false, requestType));
         dispatch(setRepeatRequest(false));
-        console.log(err);
+        dispatch(showErrorMessage({ message: 'Something goes wrong. Check your internet connection or login again.' }));
       });
     }
   )

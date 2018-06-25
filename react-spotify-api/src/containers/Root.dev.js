@@ -8,11 +8,13 @@ import Header from './Header';
 import Login from './Login';
 import Callback from '../components/Callback';
 import Albums from './Albums';
+import ErrorMessage from './ErrorMessage';
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <div>
       <Header />
+      <ErrorMessage />
       <Switch>
         <Route path="/search/:name?" component={App} />
         <Route path="/artist/:id" component={Albums} />

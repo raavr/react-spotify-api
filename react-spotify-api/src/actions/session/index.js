@@ -1,6 +1,6 @@
 import SA from '../../utils/SpotifyAuth';
 import Cookies from 'js-cookie';
-import { requestTypes, actionTypes } from '../';
+import { requestTypes, actionTypes, dismissError } from '../';
 import { setPendingRequest } from '../request';
 import { SESSION_TOKENS } from '../../constants';
 
@@ -39,4 +39,5 @@ export const logout = () => (dispatch) => {
   Cookies.remove(SESSION_TOKENS.ACCESS_TOKEN);
   Cookies.remove(SESSION_TOKENS.REFRESH_TOKEN);
   dispatch(resetSession());
+  dispatch(dismissError());
 }

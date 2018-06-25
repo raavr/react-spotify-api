@@ -1,6 +1,7 @@
 import { login, logout, autoLogin } from './session';
 import { search, loadArtist } from './search';
 import { loadAlbums } from './album';
+import { dismissError, showErrorMessage } from './error';
 
 export const actionTypes = {
   PENDING_REQUEST: 'PENDING_REQUEST',
@@ -10,7 +11,9 @@ export const actionTypes = {
   SEARCH_ARTIST_SUCCESS: 'SEARCH_ARTIST_SUCCESS',
   FETCH_ALBUMS: 'FETCH_ALBUMS',
   FETCH_ALBUMS_SUCCESS: 'FETCH_ALBUMS_SUCCESS',
-  REPEAT_REQUEST: 'REPEAT_REQUEST'
+  REPEAT_REQUEST: 'REPEAT_REQUEST',
+  SHOW_ERROR_MESSAGE: 'SHOW_ERROR_MESSAGE',
+  RESET_ERROR_MESSAGE: 'RESET_ERROR_MESSAGE'
 }
 export const requestTypes = {
   AUTH: 'AUTH',
@@ -24,5 +27,7 @@ export {
   logout,
   search,
   loadArtist,
-  loadAlbums
+  loadAlbums,
+  dismissError,
+  showErrorMessage
 }

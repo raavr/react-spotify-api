@@ -7,6 +7,7 @@ const List = ({ items, renderItem }) => {
   return (
     <div className="list">
       {items.map(renderItem)}
+      {items.length === 0 ? <div>Nothing here...</div> : null}
     </div>
   )
 }
