@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { requestTypes } from '../actions';
+import { requestTypes, actionTypes } from '../actions';
 import { loadAlbums } from '../actions';
 import List from '../components/List';
 import Album from '../components/Album';
@@ -21,6 +21,12 @@ class Albums extends Component {
   componentWillMount() {
     if(this.props.isAuthenticated) {
       this.props.loadAlbums(this.props.id);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.repeatRequest !== this.props.repeatRequest) {
+      nextProps.loadAlbums(this.props.id);
     }
   }
 
@@ -63,7 +69,8 @@ const mapStateToProps = (state, ownProps) => {
     items,
     id,
     artist: artists[id],
-    isAuthenticated: Boolean(state.session.session)
+    isAuthenticated: Boolean(state.session.session),
+    repeatRequest: Boolean(state.request[actionTypes.REPEAT_REQUEST])
   }
 };
 

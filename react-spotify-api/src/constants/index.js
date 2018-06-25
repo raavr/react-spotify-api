@@ -1,7 +1,15 @@
 import { SCHEMA } from './schema';
-const ACCESS_TOKEN = 'access_token';
+import { SERVER_URL, SPOTIFY_URL, SPOTIFY_API } from './api';
+
+const SESSION_TOKENS = {
+    ACCESS_TOKEN: 'access_token',
+    REFRESH_TOKEN: 'refresh_token'
+}
 
 export {
     SCHEMA,
-    ACCESS_TOKEN
+    SESSION_TOKENS,
+    SERVER_URL,
+    SPOTIFY_API,
+    SPOTIFY_URL
 }

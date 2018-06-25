@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadArtist, requestTypes } from '../actions';
+import { loadArtist, requestTypes, actionTypes } from '../actions';
 import List from '../components/List'; 
 import Artist from '../components/Artist';
 
@@ -10,7 +10,8 @@ class SearchResult extends Component {
     artistName: PropTypes.string.isRequired,
     loadArtist: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
-    nextPageUrl: PropTypes.string.isRequired
+    nextPageUrl: PropTypes.string.isRequired,
+    repeatRequest: PropTypes.bool.isRequired
   }
 
   componentWillMount() {
@@ -21,7 +22,7 @@ class SearchResult extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.artistName !== this.props.artistName) {
+    if(nextProps.repeatRequest !== this.props.repeatRequest || nextProps.artistName !== this.props.artistName) {
       nextProps.loadArtist(nextProps.artistName);
     }
   }
@@ -55,9 +56,10 @@ const mapStateToProps = (state, ownProps) => {
   }
   
   return {
-    isLoading: state.request[requestTypes.SEARCH],
+    isLoading: Boolean(state.request[requestTypes.SEARCH]),
     items,
-    nextPageUrl
+    nextPageUrl,
+    repeatRequest: Boolean(state.request[actionTypes.REPEAT_REQUEST])
   }
 };
 

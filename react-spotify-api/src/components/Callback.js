@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-const postMessage = (isSuccess, token) => {
+const postMessage = (isSuccess, tokens) => {
   window.opener.postMessage(
-    isSuccess ? { auth: { token } } : { error: 'Login failed' },
+    isSuccess ? { auth: tokens } : { error: 'Login failed' },
     window.opener.location
   );
 }
@@ -13,19 +13,16 @@ class Callback extends Component {
     // window.opener.open(url, '_self');
     // window.opener.focus();
     // window.close();
-    const tokenGroup = window.location.search.substr(1).split('&').filter((item) => item.match('access_token'))[0];
-    console.log(tokenGroup);
-    if(!tokenGroup || tokenGroup.indexOf('=') === -1) {
-      postMessage(false);
-      return;
-    }
-    const token = tokenGroup.split('=').pop();
-    if(!token) {
+    const tokensGroup = new URLSearchParams(window.location.search.substr(1));
+    const refreshToken = tokensGroup.get('refresh_token');
+    const accessToken = tokensGroup.get('access_token');
+
+    if(!refreshToken || !accessToken) {
       postMessage(false);
       return;
     }
 
-    postMessage(true, token);
+    postMessage(true, { accessToken, refreshToken });
   }
 
   render() {

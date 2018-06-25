@@ -1,6 +1,5 @@
 import { actionTypes, requestTypes } from '../';
-import { SPOTIFY_API, SPOTIFY_URL } from '../../middleware/api';
-import { SCHEMA } from '../../constants';
+import { SCHEMA, SPOTIFY_API, SPOTIFY_URL } from '../../constants';
 
 export const loadAlbums = (artist, nextPage = false) => (dispatch, getState) => {
   const albums = getState().entities.albumsByArtist[artist];

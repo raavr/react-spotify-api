@@ -1,9 +1,8 @@
-import { setPendingRequest } from '../actions/request';
+import { setPendingRequest, setRepeatRequest } from '../actions/request';
 import { requestTypes } from '../actions';
 import { normalize } from 'normalizr';
-
-export const SPOTIFY_API = 'SPOTIFY_API';
-export const SPOTIFY_URL = 'https://api.spotify.com/v1';
+import { setSession } from '../actions/session';
+import { SERVER_URL, SPOTIFY_API } from '../constants';
 
 const mapJsonResponse = (json, type) => {
   switch (type) {
@@ -14,6 +13,17 @@ const mapJsonResponse = (json, type) => {
     default:
       return json;
   }
+}
+
+const refreshAccessToken = (refreshToken) => {
+  return fetch(`${SERVER_URL}/refresh_token?refresh_token=${refreshToken}`)
+    .then(response => response.json().then((json) => {
+      if(!response.ok) {
+        return Promise.reject(json);
+      };
+
+      return json;
+    }))
 }
 
 const fetchApi = (token, spotifyAction) => {
@@ -39,18 +49,31 @@ export default store => dispatch => action => {
     return dispatch(action);
   }
 
-  const [requestType, successType] = spotifyAction.types;
+  const [ requestType, successType ] = spotifyAction.types;
+  const { refreshToken, accessToken } = store.getState().session.session;
 
   dispatch(setPendingRequest(true, requestType));
-
-  return fetchApi(store.getState().session.session.token, spotifyAction).then(
+  
+  return fetchApi(accessToken, spotifyAction).then(
     response => {
       dispatch({ type: successType, response });
       dispatch(setPendingRequest(false, requestType));
+      dispatch(setRepeatRequest(false));
     }
   ).catch(
     (err) => {
-      dispatch(setPendingRequest(false, requestType));
+      refreshAccessToken(refreshToken).then(
+        (data) => {
+          if(err.error.status === 401) {
+            dispatch(setSession({ refreshToken, accessToken: data.access_token  }));
+            dispatch(setRepeatRequest(true));
+          }
+        }
+      ).catch(err => {
+        dispatch(setPendingRequest(false, requestType));
+        dispatch(setRepeatRequest(false));
+        console.log(err);
+      });
     }
   )
 }

@@ -1,6 +1,5 @@
 import { actionTypes, requestTypes } from '../';
-import { SPOTIFY_API, SPOTIFY_URL } from '../../middleware/api';
-import { SCHEMA } from '../../constants';
+import { SCHEMA, SPOTIFY_API, SPOTIFY_URL } from '../../constants';
 
 export const loadArtist = (name, nextPage = false) => (dispatch, getState) => {
   const artists = getState().entities.searches[name];
