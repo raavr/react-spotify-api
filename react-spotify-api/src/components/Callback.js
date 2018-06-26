@@ -5,7 +5,7 @@ const postMessage = (isSuccess, tokens) => {
     isSuccess ? { auth: tokens } : { error: 'Login failed' },
     window.opener.location
   );
-}
+};
 
 class Callback extends Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ class Callback extends Component {
     const refreshToken = tokensGroup.get('refresh_token');
     const accessToken = tokensGroup.get('access_token');
 
-    if(!refreshToken || !accessToken) {
+    if (!refreshToken || !accessToken) {
       postMessage(false);
       return;
     }

@@ -7,13 +7,15 @@ const Artist = ({ artist }) => {
   return (
     <Link className="list-item" to={`/artist/${artist.id}`}>
       <img src={imgUrl} className="list-item__img artist-item__img" alt={artist.name} />
-      <div className="list-item__name">{artist.name}</div>
+      <div className="list-item__name">
+        {artist.name}
+      </div>
     </Link>
-  )
+  );
 };
 
 Artist.propTypes = {
   artist: PropTypes.object.isRequired
-}
+};
 
 export default Artist;

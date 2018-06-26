@@ -7,16 +7,20 @@ const Album = ({ album, artist }) => {
     <div className="list-item" to={`/artist/${album.id}`}>
       <img src={imgUrl} className="list-item__img" alt={album.name} />
       <div className="list-item__name">
-        <div>{album.name}</div>
-        <div>{artist.name}</div>
+        <div>
+          {album.name}
+        </div>
+        <div>
+          {artist.name}
+        </div>
       </div>
     </div>
-  )
+  );
 };
 
 Album.propTypes = {
   album: PropTypes.object.isRequired,
   artist: PropTypes.object.isRequired
-}
+};
 
 export default Album;

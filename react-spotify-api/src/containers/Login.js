@@ -6,18 +6,22 @@ import { Redirect } from 'react-router-dom';
 import { login } from '../actions';
 
 const Login = ({ isAuthenticated, onLogin }) => {
-  return isAuthenticated ? 
-    <Redirect to="/search" /> : 
-    <button type="button" onClick={onLogin}>Login with Spotify</button>
-}
+  return isAuthenticated
+    ? <Redirect to="/search" />
+    : (
+      <button type="button" onClick={onLogin}>
+        Login with Spotify
+      </button>
+    );
+};
 
 Login.propTypes = {
-  isAuthenticated: PropTypes.object,
-  onLogin: PropTypes.func
-}
+  isAuthenticated: PropTypes.bool.isRequired,
+  onLogin: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.session.session
+  isAuthenticated: Boolean(state.session.session)
 });
 
 const mapDispatchToProps = (dispatch) => ({

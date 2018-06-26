@@ -1,4 +1,4 @@
-import { actionTypes } from '../';
+import { actionTypes } from '../../constants';
 
 export const showErrorMessage = (error) => ({
   type: actionTypes.SHOW_ERROR_MESSAGE,

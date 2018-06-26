@@ -1,18 +1,19 @@
-import { actionTypes, requestTypes } from '../';
-import { SCHEMA, SPOTIFY_API, SPOTIFY_URL } from '../../constants';
+import {
+  SCHEMA, SPOTIFY_API, SPOTIFY_URL, requestTypes, actionTypes
+} from '../../constants';
 
 export const loadAlbums = (artist, nextPage = false) => (dispatch, getState) => {
   const albums = getState().entities.albumsByArtist[artist];
-  if(albums && !nextPage) {
+  if (albums && !nextPage) {
     return null;
   }
 
-  const nextPageUrl =  albums ? albums.next : `${SPOTIFY_URL}/artists/${artist}/albums`;
-  if(!nextPageUrl) {
+  const nextPageUrl = albums ? albums.next : `${SPOTIFY_URL}/artists/${artist}/albums`;
+  if (!nextPageUrl) {
     return null;
   }
 
-  return dispatch(fetchAlbums(nextPageUrl)); 
+  return dispatch(fetchAlbums(nextPageUrl));
 };
 
 export const fetchAlbums = (nextPageUrl) => ({

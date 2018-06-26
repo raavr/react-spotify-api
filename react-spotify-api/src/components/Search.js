@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class Search extends Component {
   static propTypes = {
@@ -15,7 +14,8 @@ export class Search extends Component {
   }
 
   handleGoClick = () => {
-    this.props.onChange(this.input.value);
+    const { onChange } = this.props;
+    onChange(this.input.value);
   }
 
   render() {
@@ -23,13 +23,16 @@ export class Search extends Component {
 
     return (
       <div>
-        <input type="text"
+        <input
+          type="text"
           defaultValue={searchValue}
-          ref={(input) => this.input = input}
+          ref={(input) => { this.input = input; }}
           onKeyUp={this.handleKeyUp}
         />
-        <button type="button" onClick={this.handleGoClick}>Go</button>
+        <button type="button" onClick={this.handleGoClick}>
+          Go
+        </button>
       </div>
-    )
+    );
   }
 }

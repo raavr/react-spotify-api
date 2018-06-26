@@ -1,15 +1,15 @@
-import { actionTypes } from '../../actions';
+import { actionTypes } from '../../constants';
 
 const defaultState = {
   session: null
-}
+};
 
 const setSession = (state, session) => ({
   ...state, session
 });
 
 export const session = (state = defaultState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case actionTypes.SET_SESSION:
       return setSession(state, action.session);
     case actionTypes.RESET_SESSION:

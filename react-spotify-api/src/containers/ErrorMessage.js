@@ -6,18 +6,20 @@ import { dismissError } from '../actions';
 const ErrorMessage = ({ dismiss, error }) => {
   return error ? (
     <p className="alert-error">
-      <span>{error.message}</span>
+      <span>
+        {error.message}
+      </span>
       <button onClick={dismiss} type="button">
         Dismiss
       </button>
     </p>
   ) : null;
-}
+};
 
 ErrorMessage.protoTypes = {
   error: PropTypes.object,
   dismiss: PropTypes.func.isRequired
-}
+};
 
 const mapStateToProps = (state) => ({
   error: state.error

@@ -1,16 +1,16 @@
-import { actionTypes } from '../../actions';
+import { actionTypes } from '../../constants';
 
 const setPendingRequest = (state, action) => {
   const { isPending, requestType } = action;
   const requestObject = {};
   requestObject[requestType] = isPending;
   return Object.assign({}, state, requestObject);
-}
+};
 
 const setRepeatRequest = (state, action) => {
   const { type, repeat } = action;
-  return Object.assign({}, state, { [type]: repeat })
-}
+  return Object.assign({}, state, { [type]: repeat });
+};
 
 export const request = (state = {}, action) => {
   switch (action.type) {
@@ -21,6 +21,4 @@ export const request = (state = {}, action) => {
     default:
       return state;
   }
-}
-
-
+};

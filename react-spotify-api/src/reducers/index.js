@@ -9,6 +9,6 @@ const rootReducer = combineReducers({
   request,
   entities,
   error
-})
+});
 
 export default rootReducer;

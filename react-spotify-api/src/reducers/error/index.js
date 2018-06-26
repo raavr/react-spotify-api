@@ -1,9 +1,9 @@
-import { actionTypes } from '../../actions';
+import { actionTypes } from '../../constants';
 
 export const error = (state = null, action) => {
   const { type, error } = action;
 
-  switch(type) {
+  switch (type) {
     case actionTypes.SHOW_ERROR_MESSAGE:
       return error;
     case actionTypes.RESET_ERROR_MESSAGE:
@@ -11,4 +11,4 @@ export const error = (state = null, action) => {
     default:
       return state;
   }
-}
+};

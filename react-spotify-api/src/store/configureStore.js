@@ -1,2 +1,2 @@
-//@todo: add the production config
+// @todo: add the production config
 module.exports = require('./configureStore.dev');

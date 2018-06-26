@@ -1,7 +1,7 @@
-const URI_LOGIN = 'http://localhost:8888/login'
+import { SERVER_URL } from "../constants";
 
-//https://gist.github.com/gauravtiwari/2ae9f44aee281c759fe5a66d5c2721a2
-const SA = (uri = URI_LOGIN) => {
+// https://gist.github.com/gauravtiwari/2ae9f44aee281c759fe5a66d5c2721a2
+const SA = (uri = `${SERVER_URL}/login`) => {
   const windowArea = {
     width: Math.floor(window.outerWidth * 0.5),
     height: Math.floor(window.outerHeight * 0.5),
@@ -27,9 +27,9 @@ const SA = (uri = URI_LOGIN) => {
   // Listen to message from child window
   const authPromise = new Promise((resolve, reject) => {
     eventer(messageEvent, (e) => {
-      if (!~e.origin.indexOf(`${window.location.protocol}//${window.location.host}`)) {
+      if (e.origin.indexOf(`${window.location.protocol}//${window.location.host}`) === -1) {
         authWindow.close();
-        reject('Not allowed');
+        reject(new Error('Not allowed'));
       }
 
       if (e.data.auth) {
@@ -37,7 +37,7 @@ const SA = (uri = URI_LOGIN) => {
         authWindow.close();
       } else {
         authWindow.close();
-        reject('Unauthorised');
+        reject(new Error('Unauthorised'));
       }
     }, false);
   });
