@@ -5,6 +5,7 @@ import { loadArtist } from '../actions';
 import { requestTypes, actionTypes } from '../constants';
 import List from '../components/List';
 import Artist from '../components/Artist';
+import Loading from '../components/Loading';
 
 class SearchResult extends Component {
   static protoType = {
@@ -43,18 +44,17 @@ class SearchResult extends Component {
 
     return artistName
       ? (
-        <List
-          items={items}
-          isLoading={isLoading && items.length === 0}
-          onScroll={this.fetchMore}
-          renderItem={this.renderArtist}
-        />
+        <React.Fragment>
+          <List
+            items={items}
+            isLoading={isLoading && items.length === 0}
+            onScroll={this.fetchMore}
+            renderItem={this.renderArtist}
+          />
+          <Loading isLoading={isLoading && items.length > 0} />
+        </React.Fragment>
       )
-      : (
-        <div>
-          Search for artists
-        </div>
-      );
+      : null;
   }
 }
 

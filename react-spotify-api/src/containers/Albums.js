@@ -6,6 +6,7 @@ import { requestTypes, actionTypes } from '../constants';
 import { loadAlbums } from '../actions';
 import List from '../components/List';
 import Album from '../components/Album';
+import Loading from '../components/Loading';
 
 
 class Albums extends Component {
@@ -43,7 +44,9 @@ class Albums extends Component {
   }
 
   render() {
-    const { isLoading, items, isAuthenticated } = this.props;
+    const {
+      isLoading, items, isAuthenticated, artist
+    } = this.props;
 
     if (!isAuthenticated) {
       return <Redirect to="/login" />;
@@ -51,8 +54,8 @@ class Albums extends Component {
 
     return (
       <React.Fragment>
-        <h1>
-          Albums
+        <h1 className="page-title">
+          {artist.name ? artist.name + '\'s albums' : 'Albums'}
         </h1>
         <List
           items={items}
@@ -60,6 +63,7 @@ class Albums extends Component {
           onScroll={this.fetchMore}
           renderItem={this.renderAlbum}
         />
+        <Loading isLoading={isLoading && items.length > 0} />
       </React.Fragment>
     );
   }

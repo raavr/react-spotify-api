@@ -1,0 +1,61 @@
+@import '~bootstrap/scss/bootstrap-grid';
+@import './constant/variables';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: $bgColor;
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: $fontColor;
+  text-decoration: none;
+
+  &:hover {
+    color: $linkHover;
+  }
+
+  &:active {
+    color: $linkActive;
+  }
+
+  &:visited {
+    color: $linkVisited;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+.btn {
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  background: 0;
+}
+
+.page-title {
+  color: $lightColor;
+  text-align: center;
+}
+
+@import './components/header';
+@import './components/login';
+@import './components/search';
+@import './components/list';
+@import './components/loading';
+@import './components/album';
+@import './components/artist';
+@import './components/error-message';

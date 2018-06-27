@@ -1,0 +1,14 @@
+.header {
+  padding: 10px;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  a {
+    float: right;
+  }
+}
+

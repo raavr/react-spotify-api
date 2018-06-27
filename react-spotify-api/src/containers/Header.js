@@ -36,7 +36,7 @@ class Header extends Component {
   render() {
     const { isAuthenticated, onLogin, onLogout } = this.props;
     return (
-      <div>
+      <div className="header">
         { isAuthenticated ? <LogoutLink onLogout={onLogout} /> : <LoginLink onLogin={onLogin} /> }
       </div>
     );

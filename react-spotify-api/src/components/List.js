@@ -5,15 +5,17 @@ import withFetchOnScroll from './withFetchOnScroll';
 
 const List = ({ items, renderItem }) => {
   return (
-    <div className="list">
-      {items.map(renderItem)}
-      {items.length === 0
-        ? (
-        <div>
-          Nothing here...
-        </div>
-        )
-        : null}
+    <div className="container container-list">
+      <ul className="row">
+        {items.map(renderItem)}
+        {items.length === 0
+          ? (
+          <div className="no-items">
+            Nothing here...
+          </div>
+          )
+          : null}
+      </ul>
     </div>
   );
 };

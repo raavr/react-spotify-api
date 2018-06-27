@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 const Artist = ({ artist }) => {
   const imgUrl = artist.images.length !== 0 ? artist.images[0].url : '';
   return (
-    <Link className="list-item" to={`/artist/${artist.id}`}>
-      <img src={imgUrl} className="list-item__img artist-item__img" alt={artist.name} />
-      <div className="list-item__name">
-        {artist.name}
-      </div>
-    </Link>
+    <li className="col-6 col-sm-4 col-md-3 col-lg-2 list-item">
+      <Link to={`/artist/${artist.id}`}>
+        <div className="list-item__img artist-item__img" style={{ backgroundImage: `url(${imgUrl})` }}></div>
+        <div className="list-item__desc">
+          {artist.name}
+        </div>
+      </Link>
+    </li>
   );
 };
 

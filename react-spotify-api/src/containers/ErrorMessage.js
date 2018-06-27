@@ -9,7 +9,7 @@ const ErrorMessage = ({ dismiss, error }) => {
       <span>
         {error.message}
       </span>
-      <button onClick={dismiss} type="button">
+      <button onClick={dismiss} type="button" className="btn btn__dismiss">
         Dismiss
       </button>
     </p>

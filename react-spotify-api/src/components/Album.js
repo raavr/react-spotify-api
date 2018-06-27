@@ -4,17 +4,17 @@ import React from 'react';
 const Album = ({ album, artist }) => {
   const imgUrl = album.images.length !== 0 ? album.images[0].url : '';
   return (
-    <div className="list-item" to={`/artist/${album.id}`}>
-      <img src={imgUrl} className="list-item__img" alt={album.name} />
-      <div className="list-item__name">
-        <div>
+    <li className="col-6 col-sm-4 col-md-3 col-lg-2 list-item">
+      <div className="list-item__img" style={{ backgroundImage: `url(${imgUrl})` }}></div>
+      <div className="list-item__desc">
+        <p className="album-title">
           {album.name}
-        </div>
-        <div>
+        </p>
+        <p className="album-artist">
           {artist.name}
-        </div>
+        </p>
       </div>
-    </div>
+    </li>
   );
 };
 

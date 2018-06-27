@@ -1,0 +1,10 @@
+.alert-error {
+  background-color: $bgAlertColor;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn__dismiss {
+  background-color: rgba(0,0,0,0.2);
+}

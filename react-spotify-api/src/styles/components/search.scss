@@ -1,0 +1,22 @@
+.search {
+  &-box {
+    background-color: $bgItemColor;
+    padding: 20px 10px;
+  }
+
+  &-input {
+    font-size: 56px;
+    line-height: 56px;
+    font-weight: 600;
+    color: $lightColor;
+    text-transform: none;
+    caret-color: #6fb3d2;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

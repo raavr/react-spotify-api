@@ -9,10 +9,6 @@ const postMessage = (isSuccess, tokens) => {
 
 class Callback extends Component {
   componentDidMount() {
-    // const url = '/private';
-    // window.opener.open(url, '_self');
-    // window.opener.focus();
-    // window.close();
     const tokensGroup = new URLSearchParams(window.location.search.substr(1));
     const refreshToken = tokensGroup.get('refresh_token');
     const accessToken = tokensGroup.get('access_token');

@@ -22,16 +22,15 @@ export class Search extends Component {
     const { searchValue } = this.props;
 
     return (
-      <div>
+      <div className="search-box">
         <input
           type="text"
           defaultValue={searchValue}
           ref={(input) => { this.input = input; }}
           onKeyUp={this.handleKeyUp}
+          className="search-input"
+          placeholder="Search for artists..."
         />
-        <button type="button" onClick={this.handleGoClick}>
-          Go
-        </button>
       </div>
     );
   }

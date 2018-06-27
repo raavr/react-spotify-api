@@ -9,7 +9,7 @@ const Login = ({ isAuthenticated, onLogin }) => {
   return isAuthenticated
     ? <Redirect to="/search" />
     : (
-      <button type="button" onClick={onLogin}>
+      <button type="button" onClick={onLogin} className="btn btn__login-with">
         Login with Spotify
       </button>
     );
