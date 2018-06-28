@@ -1,15 +1,15 @@
-//based on https://github.com/mpj/oauth-bridge-template
-let express = require('express')
-let request = require('request')
-let querystring = require('querystring')
-let cors = require('cors');
+//based on https://github.com/mpj/oauth-bridge-templatconst express = require('express')
+const express = require('express');
+const request = require('request');
+const querystring = require('querystring');
+const cors = require('cors');
 
-let app = express()
-app.use(cors())
+const app = express();
+app.use(cors());
  
-let redirect_uri = 
+const redirect_uri = 
   process.env.REDIRECT_URI || 
-  'http://localhost:8888/callback'
+  'http://localhost:8888/callback';
 
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -18,12 +18,13 @@ app.get('/login', function(req, res) {
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'user-read-private user-read-email',
       redirect_uri
-    }))
-})
+    })
+  );
+});
 
 app.get('/callback', function(req, res) {
-  let code = req.query.code || null
-  let authOptions = {
+  const code = req.query.code || null;
+  const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
@@ -36,7 +37,8 @@ app.get('/callback', function(req, res) {
       ).toString('base64'))
     },
     json: true
-  }
+  };
+
   request.post(authOptions, function(error, response, body) {
     const { access_token, refresh_token, expires_in } = body;
     const uri = process.env.FRONTEND_URI || 'http://localhost:3000/callback';
@@ -46,8 +48,8 @@ app.get('/callback', function(req, res) {
       expires_in: new Date().getTime() + expires_in * 1000
     });
     res.redirect(`${uri}?${query}`);
-  })
-})
+  });
+});
 
 app.get('/refresh_token', function(req, res) {
   const refresh_token = req.query.refresh_token;
@@ -63,7 +65,7 @@ app.get('/refresh_token', function(req, res) {
       refresh_token: refresh_token
     },
     json: true
-  }
+  };
 
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -71,11 +73,11 @@ app.get('/refresh_token', function(req, res) {
       res.send({
         access_token,
         expires_in: new Date().getTime() + expires_in * 1000
-      })
+      });
     }
-  })
-})
+  });
+});
 
-let port = process.env.PORT || 8888
-console.log(`Listening on port ${port}. Go /login to initiate authentication flow.`)
-app.listen(port)
+const port = process.env.PORT || 8888;
+console.log(`Listening on port ${port}. Go /login to initiate authentication flow.`);
+app.listen(port);
