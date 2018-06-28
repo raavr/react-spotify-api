@@ -3,6 +3,7 @@ import { setPendingRequest, setRepeatRequest } from '../actions/request';
 import { showErrorMessage } from '../actions';
 import { setSession } from '../actions/session';
 import { SERVER_URL, SPOTIFY_API, requestTypes } from '../constants';
+import { isTokenExpired, setCookies } from '../utils';
 
 const mapJsonResponse = (json, type) => {
   switch (type) {
@@ -23,7 +24,17 @@ const refreshAccessToken = (refreshToken) => {
       }
 
       return json;
-    }));
+    }))
+    .then((data) => {
+      const session = {
+        refreshToken,
+        accessToken: data.access_token,
+        expiresIn: data.expires_in
+      };
+      setCookies(session);
+
+      return session;
+    });
 };
 
 const fetchApi = (token, spotifyAction) => {
@@ -49,9 +60,22 @@ export default store => dispatch => action => {
   }
 
   const [requestType, successType] = spotifyAction.types;
-  const { refreshToken, accessToken } = store.getState().session.session;
+  const { refreshToken, accessToken, expiresIn } = store.getState().session.session;
 
   dispatch(setPendingRequest(true, requestType));
+
+  if (isTokenExpired(expiresIn)) {
+    return refreshAccessToken(refreshToken).then(session => {
+      dispatch(setSession(session));
+      dispatch(setRepeatRequest(true));
+    }).catch(() => {
+      dispatch(setPendingRequest(false, requestType));
+      dispatch(setRepeatRequest(false));
+      dispatch(showErrorMessage({
+        message: 'Something goes wrong. Cannot refresh your session. Please login again.'
+      }));
+    });
+  }
 
   return fetchApi(accessToken, spotifyAction).then(
     response => {
@@ -59,23 +83,10 @@ export default store => dispatch => action => {
       dispatch(setPendingRequest(false, requestType));
       dispatch(setRepeatRequest(false));
     }
-  ).catch(
-    (err) => {
-      refreshAccessToken(refreshToken).then(
-        (data) => {
-          if (err.error.status === 401) {
-            dispatch(setSession({ refreshToken, accessToken: data.access_token }));
-            dispatch(setRepeatRequest(true));
-          } else {
-            dispatch(showErrorMessage(err.error));
-            dispatch(setPendingRequest(false, requestType));
-          }
-        }
-      ).catch(() => {
-        dispatch(setPendingRequest(false, requestType));
-        dispatch(setRepeatRequest(false));
-        dispatch(showErrorMessage({ message: 'Something goes wrong. Check your internet connection or login again.' }));
-      });
-    }
-  );
+  ).catch((err) => {
+    dispatch(setPendingRequest(false, requestType));
+    dispatch(showErrorMessage(
+      err.error ? err.error : { message: 'Something goes wrong. Check your internet connection and try again.' }
+    ));
+  });
 };

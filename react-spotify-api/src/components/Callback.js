@@ -12,13 +12,14 @@ class Callback extends Component {
     const tokensGroup = new URLSearchParams(window.location.search.substr(1));
     const refreshToken = tokensGroup.get('refresh_token');
     const accessToken = tokensGroup.get('access_token');
+    const expiresIn = tokensGroup.get('expires_in');
 
-    if (!refreshToken || !accessToken) {
+    if (!refreshToken || !accessToken || !expiresIn) {
       postMessage(false);
       return;
     }
 
-    postMessage(true, { accessToken, refreshToken });
+    postMessage(true, { accessToken, refreshToken, expiresIn });
   }
 
   render() {

@@ -1,8 +1,9 @@
-import Cookies from 'js-cookie';
-import SA from '../../utils/SpotifyAuth';
 import { dismissError } from '../error';
 import { setPendingRequest } from '../request';
-import { SESSION_TOKENS, actionTypes, requestTypes } from '../../constants';
+import { actionTypes, requestTypes } from '../../constants';
+import {
+  SA, setCookies, getCookies, removeCookies
+} from '../../utils';
 
 export const setSession = (session) => ({
   type: actionTypes.SET_SESSION,
@@ -14,20 +15,18 @@ const resetSession = () => ({
 });
 
 export const autoLogin = () => (dispatch) => {
-  const accessToken = Cookies.get(SESSION_TOKENS.ACCESS_TOKEN);
-  const refreshToken = Cookies.get(SESSION_TOKENS.REFRESH_TOKEN);
-  if (!accessToken || !refreshToken) {
+  const [accessToken, refreshToken, expiresIn] = getCookies();
+  if (!accessToken || !refreshToken || !expiresIn) {
     return null;
   }
 
-  return dispatch(setSession({ accessToken, refreshToken }));
+  return dispatch(setSession({ accessToken, refreshToken, expiresIn }));
 };
 
 export const login = () => (dispatch) => {
   dispatch(setPendingRequest(true, requestTypes.AUTH));
   SA().then((session) => {
-    Cookies.set(SESSION_TOKENS.ACCESS_TOKEN, session.accessToken);
-    Cookies.set(SESSION_TOKENS.REFRESH_TOKEN, session.refreshToken);
+    setCookies(session);
     dispatch(setSession(session));
     dispatch(setPendingRequest(false, requestTypes.AUTH));
   }).catch(() => {
@@ -36,8 +35,7 @@ export const login = () => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  Cookies.remove(SESSION_TOKENS.ACCESS_TOKEN);
-  Cookies.remove(SESSION_TOKENS.REFRESH_TOKEN);
+  removeCookies();
   dispatch(resetSession());
   dispatch(dismissError());
 };
