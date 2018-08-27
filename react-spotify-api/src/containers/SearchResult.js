@@ -16,17 +16,17 @@ class SearchResult extends Component {
     repeatRequest: PropTypes.bool.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { loadArtist, artistName } = this.props;
     if (artistName !== '') {
       loadArtist(artistName);
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { repeatRequest, artistName } = this.props;
-    if (nextProps.repeatRequest !== repeatRequest || nextProps.artistName !== artistName) {
-      nextProps.loadArtist(nextProps.artistName);
+  componentDidUpdate(prevProps) {
+    const { repeatRequest, artistName, loadArtist } = this.props;
+    if (prevProps.repeatRequest !== repeatRequest || prevProps.artistName !== artistName) {
+      loadArtist(artistName);
     }
   }
 

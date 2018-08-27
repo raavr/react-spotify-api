@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login, logout, autoLogin } from '../actions';
+import { login, logout } from '../actions';
 
 const LoginLink = ({ onLogin }) => {
   return (
-    <Link onClick={onLogin} to="/search">
+    <Link onClick={onLogin} to="/login">
       Login
     </Link>
   );
@@ -14,7 +14,7 @@ const LoginLink = ({ onLogin }) => {
 
 const LogoutLink = ({ onLogout }) => {
   return (
-    <Link onClick={onLogout} to="/search">
+    <Link onClick={onLogout} to="/login">
       Logout
     </Link>
   );
@@ -25,19 +25,16 @@ class Header extends Component {
     isAuthenticated: PropTypes.bool.isRequired,
     onLogin: PropTypes.func.isRequired,
     onLogout: PropTypes.func.isRequired,
-    autoLogin: PropTypes.func.isRequired
-  }
-
-  componentWillMount() {
-    const { autoLogin } = this.props;
-    autoLogin();
   }
 
   render() {
     const { isAuthenticated, onLogin, onLogout } = this.props;
     return (
       <div className="header">
-        { isAuthenticated ? <LogoutLink onLogout={onLogout} /> : <LoginLink onLogin={onLogin} /> }
+        {isAuthenticated
+          ? <LogoutLink onLogout={onLogout} />
+          : <LoginLink onLogin={onLogin} />
+        }
       </div>
     );
   }
@@ -49,6 +46,5 @@ const mapStateToProps = (store) => ({
 
 export default connect(mapStateToProps, {
   onLogin: login,
-  onLogout: logout,
-  autoLogin
+  onLogout: logout
 })(Header);

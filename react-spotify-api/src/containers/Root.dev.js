@@ -9,6 +9,7 @@ import Login from './Login';
 import Callback from '../components/Callback';
 import Albums from './Albums';
 import ErrorMessage from './ErrorMessage';
+import PrivateRoute from './PrivateRoute';
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -16,8 +17,8 @@ const Root = ({ store }) => (
       <Header />
       <ErrorMessage />
       <Switch>
-        <Route path="/search/:name?" component={App} />
-        <Route path="/artist/:id" component={Albums} />
+        <PrivateRoute path="/search/:name?" component={App} />
+        <PrivateRoute path="/artist/:id" component={Albums} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/callback" component={Callback} />
         <Redirect to="/search" />

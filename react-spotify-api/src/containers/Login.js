@@ -5,9 +5,10 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../actions';
 
-const Login = ({ isAuthenticated, onLogin }) => {
+const Login = ({ isAuthenticated, onLogin, location }) => {
+  const { from } = location.state || { from: { pathname: "/search" } };
   return isAuthenticated
-    ? <Redirect to="/search" />
+    ? <Redirect to={from} />
     : (
       <button type="button" onClick={onLogin} className="btn btn__login-with">
         Login with Spotify

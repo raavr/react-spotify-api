@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestTypes, actionTypes } from '../constants';
 import { loadAlbums } from '../actions';
@@ -16,20 +16,17 @@ class Albums extends Component {
     loadAlbums: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     artist: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
   }
 
-  componentWillMount() {
-    const { isAuthenticated, loadAlbums, id } = this.props;
-    if (isAuthenticated) {
+  componentDidMount() {
+    const { loadAlbums, id } = this.props;
+    loadAlbums(id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { repeatRequest, id, loadAlbums } = this.props;
+    if (prevProps.repeatRequest !== repeatRequest) {
       loadAlbums(id);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { repeatRequest, id } = this.props;
-    if (nextProps.repeatRequest !== repeatRequest) {
-      nextProps.loadAlbums(id);
     }
   }
 
@@ -44,13 +41,7 @@ class Albums extends Component {
   }
 
   render() {
-    const {
-      isLoading, items, isAuthenticated, artist
-    } = this.props;
-
-    if (!isAuthenticated) {
-      return <Redirect to="/login" />;
-    }
+    const { isLoading, items, artist } = this.props;
 
     return (
       <React.Fragment>
@@ -83,7 +74,6 @@ const mapStateToProps = (state, ownProps) => {
     items,
     id,
     artist: artists[id] || {},
-    isAuthenticated: Boolean(state.session.session),
     repeatRequest: Boolean(state.request[actionTypes.REPEAT_REQUEST])
   };
 };
