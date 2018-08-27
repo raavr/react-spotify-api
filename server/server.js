@@ -1,4 +1,4 @@
-//based on https://github.com/mpj/oauth-bridge-templatconst express = require('express')
+//based on https://github.com/mpj/oauth-bridge-template
 const express = require('express');
 const request = require('request');
 const querystring = require('querystring');
