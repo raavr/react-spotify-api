@@ -16,9 +16,15 @@ const mergeEntities = (state, response, entityName) => {
   return merge({}, state, response.entities, { [entityName]: mergedAllSearches });
 };
 
-export const entities = (state = {
-  searches: {}, albums: {}, artists: {}, albumsByArtist: {}
-}, action) => {
+export const entities = (
+  state = {
+    searches: {},
+    albums: {},
+    artists: {},
+    albumsByArtist: {}
+  },
+  action
+) => {
   if (action.response && action.response.entities) {
     switch (action.type) {
       case actionTypes.SEARCH_ARTIST_SUCCESS:
