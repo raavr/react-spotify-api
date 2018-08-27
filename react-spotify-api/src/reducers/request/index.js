@@ -2,9 +2,7 @@ import { actionTypes } from '../../constants';
 
 const setPendingRequest = (state, action) => {
   const { isPending, requestType } = action;
-  const requestObject = {};
-  requestObject[requestType] = isPending;
-  return Object.assign({}, state, requestObject);
+  return Object.assign({}, state, { [requestType]: isPending });
 };
 
 const setRepeatRequest = (state, action) => {
