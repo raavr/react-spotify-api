@@ -1,7 +1,7 @@
 import { SERVER_URL } from "../constants";
 
 // https://gist.github.com/gauravtiwari/2ae9f44aee281c759fe5a66d5c2721a2
-const SA = (uri = `${SERVER_URL}/login`) => {
+const SpotifyOAuth = (uri = `${SERVER_URL}/login`) => {
   const windowArea = {
     width: Math.floor(window.outerWidth * 0.5),
     height: Math.floor(window.outerHeight * 0.5),
@@ -33,8 +33,8 @@ const SA = (uri = `${SERVER_URL}/login`) => {
       }
 
       if (e.data.auth) {
-        resolve(e.data.auth);
         authWindow.close();
+        resolve(e.data.auth);
       } else {
         authWindow.close();
         reject(new Error('Unauthorised'));
@@ -45,4 +45,4 @@ const SA = (uri = `${SERVER_URL}/login`) => {
   return authPromise;
 };
 
-export default SA;
+export default SpotifyOAuth;

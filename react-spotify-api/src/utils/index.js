@@ -1,10 +1,10 @@
-import SA from './SpotifyAuth';
+import SpotifyOAuth from './SpotifyOAuth';
 import {
   isTokenExpired, getCookies, setCookies, removeCookies
 } from './session';
 
 export {
-  SA,
+  SpotifyOAuth,
   isTokenExpired,
   getCookies,
   setCookies,

@@ -2,7 +2,7 @@ import { dismissError } from '../error';
 import { setPendingRequest } from '../request';
 import { actionTypes, requestTypes } from '../../constants';
 import {
-  SA, setCookies, getCookies, removeCookies
+  SpotifyOAuth, setCookies, getCookies, removeCookies
 } from '../../utils';
 
 export const setSession = (session) => ({
@@ -25,7 +25,7 @@ export const autoLogin = () => (dispatch) => {
 
 export const login = () => (dispatch) => {
   dispatch(setPendingRequest(true, requestTypes.AUTH));
-  SA().then((session) => {
+  SpotifyOAuth().then((session) => {
     setCookies(session);
     dispatch(setSession(session));
     dispatch(setPendingRequest(false, requestTypes.AUTH));
