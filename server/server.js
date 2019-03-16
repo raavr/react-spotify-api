@@ -27,7 +27,7 @@ app.get('/callback', function(req, res) {
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
-      code: code,
+      code,
       redirect_uri,
       grant_type: 'authorization_code'
     },
@@ -62,7 +62,7 @@ app.get('/refresh_token', function(req, res) {
     },
     form: {
       grant_type: 'refresh_token',
-      refresh_token: refresh_token
+      refresh_token
     },
     json: true
   };
