@@ -16,7 +16,7 @@ export const loadArtist = (name, nextPage = false) => (dispatch, getState) => {
   return dispatch(searchArtist(name, nextPageUrl));
 };
 
-const searchArtist = (name, nextPageUrl) => ({
+export const searchArtist = (name, nextPageUrl) => ({
   [SPOTIFY_API]: {
     endpoint: nextPageUrl,
     types: [requestTypes.SEARCH, actionTypes.SEARCH_ARTIST_SUCCESS],

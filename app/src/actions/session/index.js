@@ -25,7 +25,7 @@ export const autoLogin = () => (dispatch) => {
 
 export const login = () => (dispatch) => {
   dispatch(setPendingRequest(true, requestTypes.AUTH));
-  SpotifyOAuth().then((session) => {
+  return SpotifyOAuth().then((session) => {
     setCookies(session);
     dispatch(setSession(session));
     dispatch(setPendingRequest(false, requestTypes.AUTH));
