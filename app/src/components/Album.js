@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const Album = ({ album, artist }) => {
-  const imgUrl = album.images.length !== 0 ? album.images[0].url : '';
+  const imgUrl = album.images && album.images.length !== 0 ? album.images[0].url : '';
   return (
     <li className="col-6 col-sm-4 col-md-3 col-lg-2 list-item">
       <div className="list-item__img" style={{ backgroundImage: `url(${imgUrl})` }}></div>
