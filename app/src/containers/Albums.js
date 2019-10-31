@@ -9,7 +9,7 @@ import Album from '../components/Album';
 import Loading from '../components/Loading';
 
 
-class Albums extends Component {
+export class Albums extends Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
     items: PropTypes.array.isRequired,

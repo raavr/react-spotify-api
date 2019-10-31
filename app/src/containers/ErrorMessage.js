@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { dismissError } from '../actions';
 
-const ErrorMessage = ({ dismiss, error }) => {
+export const ErrorMessage = ({ dismiss, error }) => {
   return error ? (
     <p className="alert-error">
       <span>

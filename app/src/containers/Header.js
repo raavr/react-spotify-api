@@ -20,7 +20,7 @@ const LogoutLink = ({ onLogout }) => {
   );
 };
 
-class Header extends Component {
+export class Header extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     onLogin: PropTypes.func.isRequired,

@@ -7,7 +7,7 @@ import { Search } from '../components/Search';
 import SearchResult from './SearchResult';
 import Loading from '../components/Loading';
 
-class App extends Component {
+export class App extends Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
     searchValue: PropTypes.string.isRequired

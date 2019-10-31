@@ -7,7 +7,7 @@ import List from '../components/List';
 import Artist from '../components/Artist';
 import Loading from '../components/Loading';
 
-class SearchResult extends Component {
+export class SearchResult extends Component {
   static protoType = {
     artistName: PropTypes.string.isRequired,
     loadArtist: PropTypes.func.isRequired,

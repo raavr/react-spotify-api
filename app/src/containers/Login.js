@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../actions';
 
-const Login = ({ isAuthenticated, onLogin, location }) => {
+export const Login = ({ isAuthenticated, onLogin, location }) => {
   const { from } = location.state || { from: { pathname: "/search" } };
   return isAuthenticated
     ? <Redirect to={from} />
