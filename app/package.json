@@ -36,7 +36,7 @@
     "jest-cli": "^20.0.4",
     "jest-enzyme": "^7.1.1",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.21",
     "node-sass": "^4.13.0",
     "normalizr": "^3.2.4",
     "object-assign": "4.1.1",
